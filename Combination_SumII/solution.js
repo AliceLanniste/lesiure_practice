@@ -3,22 +3,29 @@
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum2 = function(c, target) {
-    c.sort((a,b)=>a-b)
-    let res = []
+var combinationSum2 = function(candidates, target) {
+    candidates.sort((a,b)=>a-b)
+    
+    let index = 0
+    let tempDataStruct = []
+    let result = []
 
-    let iterate =(index,sum,temp) => {
-        if(sum > target) return
-        if(sum === target) {
-            res.push(temp)
+    function backtracking(index, target, tempDataStruct) {
+        if(target === 0) {
+            result.push([...tempDataStruct])
             return
         }
-
-        for(let i=index;i<c.length;i++) {
-              if(i != index && c[i] == c[i-1]) continue;
-            iterate(i+1,sum+c[i],[...temp,c[i]])
+    
+        if(target < 0) return;
+    
+        for(let i=index; i<candidates.length; i++) {
+             if(i != index && candidates[i] == candidates[i-1]) continue;
+            tempDataStruct.push(candidates[i])
+            backtracking(i+1, target-candidates[i], tempDataStruct)
+            tempDataStruct.pop()
         }
     }
-    iterate(0,0,[])
-    return res
+    backtracking(index, target, tempDataStruct)
+    return result;
+    
 };
