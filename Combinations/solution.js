@@ -19,7 +19,6 @@
         for(let num=start;num<=n;num++) {
             comb.push(num)
             backtrace(num+1)
-          
             comb.pop()
           
         }
