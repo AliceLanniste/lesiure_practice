@@ -1,7 +1,15 @@
 /**
+ *summary： 1.[1,n]能组合多少个bst，2.以及打印这些bst
+ */
+
+/**
  * @param {number} n
  * @return {number}
- */
+ * 要计算最终有多少个bst组合，首先n=0||1的时候，为1。n=2的时候为2。
+ * 如果根节点为3的话，组合的多少，要看left*right。left有3-1个节点，right则是3-3个节点组合。
+ *因此reuslt(i-1,xxx)用来计算i<root,left分支多少种组合，result（n-i，xxx）剩下的节点,有多少种组合。
+*/
+
 var numTrees = function(n) {
     const memo = new Array(n+1).fill(-1)
     const solove =(n,memo) =>{
@@ -12,7 +20,6 @@ var numTrees = function(n) {
           results += solove(i-1,memo)*solove(n-i,memo);
       }
       memo[n] = results;
-      console.log(memo)
       return results;
     }
 
@@ -34,30 +41,34 @@ var numTrees = function(n) {
  * @param {number} n
  * @return {TreeNode[]}
  */
+/**
+ * 上面是计算有多少种组合，这次是把所有组合全打印出来。
+ * 也就是要遍历所有组合，并且打印节点。
+ * solution:让root遍历[1,n],按照left=[1,root-1],right=[root+1,n]
+ * 
+ */
 var generateTrees = function(n) {
     if (n == 0) return [];
-    // 构造闭区间 [1, n] 组成的 BST
+    
     return build(1, n);
   }
   
   var build = function(lo, hi) {
-    // 存储 BST 的结果集
+    
     var res = [];
     // base case
     if (lo > hi) {
-      // 注意：这里必须添加 null，否则在下面无法递归左右子树
       res.push(null);
       return res;
     }
-    // 1、穷举 root 节点的所有可能
+    
     for (var i = lo; i <= hi; i++) {
-      // 2、递归构造出左右子树的所有合法 BST
       var leftTree = build(lo, i - 1);
       var rightTree = build(i + 1, hi);
-      // 3、给 root 节点穷举所有左右子树的组合
+     
       for (var j = 0; j < leftTree.length; j++) {
         for (var k = 0; k < rightTree.length; k++) {
-          // i 作为根节点 root 的值
+         
           var root = new TreeNode(i);
           root.left = leftTree[j];
           root.right = rightTree[k];

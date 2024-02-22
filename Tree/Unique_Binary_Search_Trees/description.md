@@ -3,7 +3,11 @@ Given an integer n, return the number of structurally unique BST's (binary searc
  
 
 Example 1:
-
+1       1          2           3        3
+ \       \       /   \        /        /
+  3       2     1     3      2        1
+ /         \                /          \
+ 2          3               1            2
 
 Input: n = 3
 Output: 5

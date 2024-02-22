@@ -1,4 +1,11 @@
 /**
+ * 二叉树有一个非常有意思的地方在于，如果按照left，root，right顺序来遍历
+ * 能得到一个升序的数组。
+ * Q：为了修改不正确顺序的bst。
+ * S: 所以得遍历所有节点。
+ */ 
+
+/**
  * Definition for a binary tree node.
  * function TreeNode(val, left, right) {
  *     this.val = (val===undefined ? 0 : val)
